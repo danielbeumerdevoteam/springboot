@@ -66,8 +66,4 @@ public class VehicleController {
                     .headers(headers)
                     .body(fileResource);
     }
-
-
-
-
 }

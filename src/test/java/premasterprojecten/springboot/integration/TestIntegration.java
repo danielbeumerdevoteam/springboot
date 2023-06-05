@@ -97,25 +97,25 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
         Assertions.assertThat(response.getBody()).contains("Vehicle ID " + 1L + " deleted");
     }
 
-//    @Test
-//    @DisplayName("generateReport returns the report file when successful")
-//    public void generateReport_ReturnsReportFile_WhenSuccessful() {
-//        File reportFile = new File("report.txt");
-//
-//        HttpHeaders expectedHeaders = new HttpHeaders();
-//        expectedHeaders.setContentType(MediaType.TEXT_PLAIN);
-//        expectedHeaders.setContentDispositionFormData("attachment", "report.txt");
-//
-//        ResponseEntity<FileSystemResource> expectedResponse = ResponseEntity
-//                .status(HttpStatus.OK)
-//                .headers(expectedHeaders)
-//                .body(new FileSystemResource(reportFile));
-//
-//        ResponseEntity<FileSystemResource> response = testRestTemplate.getForEntity("/vehicles/generatereport", FileSystemResource.class);
-//
-//       // Assertions.assertThat(response.getStatusCode()).isEqualTo(expectedResponse.getStatusCode());
-//        Assertions.assertThat(response.getHeaders()).isEqualTo(expectedResponse.getHeaders());
-//    }
+    @Test
+    @DisplayName("generateReport returns the report file when successful")
+    public void generateReport_ReturnsReportFile_WhenSuccessful() {
+        File reportFile = new File("report.txt");
+
+        HttpHeaders expectedHeaders = new HttpHeaders();
+        expectedHeaders.setContentType(MediaType.TEXT_PLAIN);
+        expectedHeaders.setContentDispositionFormData("attachment", "report.txt");
+
+        ResponseEntity<FileSystemResource> expectedResponse = ResponseEntity
+                .status(HttpStatus.OK)
+                .headers(expectedHeaders)
+                .body(new FileSystemResource(reportFile));
+
+        ResponseEntity<FileSystemResource> response = testRestTemplate.getForEntity("/vehicles/generatereport", FileSystemResource.class);
+
+       // Assertions.assertThat(response.getStatusCode()).isEqualTo(expectedResponse.getStatusCode());
+        Assertions.assertThat(response.getHeaders()).isEqualTo(expectedResponse.getHeaders());
+    }
 
 }
 

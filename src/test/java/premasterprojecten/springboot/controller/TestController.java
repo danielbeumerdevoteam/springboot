@@ -1,5 +1,4 @@
 package premasterprojecten.springboot.controller;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
+import org.assertj.core.api.Assertions;
 
 class TestController {
     @InjectMocks
@@ -103,15 +103,14 @@ class TestController {
         verify(vehiclesService).delete(vehicleId);
     }
 
-//    @Test
-//    @DisplayName("generatereport returns a File resource when successful")
-//    public void generateReport_ReturnsFileResource_WhenSuccessful() {
-//        File reportFile = Mockito.mock(File.class);
-//        ResponseEntity<FileSystemResource> response = vehicleController.generatereport();
-//        FileSystemResource fileResource = response.getBody();
-//
-//        assertEquals(HttpStatus.OK, response.getStatusCode());
-//        assertEquals(reportFile, fileResource.getFile());
-//        verify(vehiclesService).generateVehicleReport();
-//    }
+    @Test
+    @DisplayName("generatereport returns a File resource when successful")
+    public void generateReport_ReturnsFileResource_WhenSuccessful() {
+      ResponseEntity<FileSystemResource> response = vehicleController.generatereport();
+      FileSystemResource fileResource = response.getBody();
+
+      assertEquals(HttpStatus.OK, response.getStatusCode());
+      Assertions.assertThat(fileResource.isFile()).isTrue();
+      verify(vehiclesService).generateVehicleReport();
+  }
 }

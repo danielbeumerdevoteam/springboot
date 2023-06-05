@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import premasterprojecten.springboot.entities.Automaker;
 import premasterprojecten.springboot.entities.Vehicles;
 import premasterprojecten.springboot.exception.ResourceNotFoundException;
+import premasterprojecten.springboot.exception.ValidationException;
 import premasterprojecten.springboot.repository.AutomakerRepository;
 import premasterprojecten.springboot.repository.TypesRepository;
 import premasterprojecten.springboot.repository.VehiclesRepository;
@@ -41,7 +42,11 @@ public class VehiclesService {
 
     @Transactional
     public Vehicles save(Vehicles vehicles) {
-        return vehiclesRepository.save(vehicles);
+        try {
+            return vehiclesRepository.save(vehicles);
+        } catch (Exception exception) {
+            throw new ValidationException("Failed to save vehicles");
+        }
     }
 
     public void update(Vehicles vehicles) {
@@ -56,9 +61,11 @@ public class VehiclesService {
     public List<String> findModelByAutomaker(String automakerName) {
         int autoId = getAutomakerIdByName(automakerName);
         List<Vehicles> listVehiclesFound = vehiclesRepository.findByAutomakerId(autoId);
+
         if (listVehiclesFound.isEmpty()) {
             throw new ResourceNotFoundException("No vehicles found for automaker: " + automakerName);
         }
+
         List<String> listModels = new ArrayList<>();
         for (Vehicles vehicles : listVehiclesFound) {
             listModels.add(vehicles.getModel());
@@ -89,7 +96,7 @@ public class VehiclesService {
     public int getAutomakerIdByName(String automakerName) {
         List<Automaker> automakers = automakerRepository.findByAutomakers(automakerName);
         if(automakers.isEmpty()) {
-            return -1;
+            throw new ResourceNotFoundException("No vehicle found with automaker name: " + automakerName);
         }
         else{
             return automakers.get(0).getAutomakerId();
