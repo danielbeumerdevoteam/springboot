@@ -31,8 +31,9 @@ public class VehicleController {
 
     @GetMapping(path = "/findautomaker")
     public ResponseEntity<List<String>> findByName(@RequestParam(value = "name") String name) {
-        return ResponseEntity.ok(vehiclesService.findModelByAutomaker(name));
+        return null;
     }
+
 
     @GetMapping(path = "/findmodel")
     public ResponseEntity <String> searchModelName(@RequestParam("name") String name) {

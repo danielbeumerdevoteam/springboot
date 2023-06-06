@@ -51,7 +51,8 @@ public class VehiclesService {
 
     public void update(Vehicles vehicles) {
         long vehicleId = vehicles.getVehicleId();
-        vehiclesRepository.save(utils.findVehicleOrThrowNotFound(vehicleId));
+        Vehicles vehicle = utils.findVehicleOrThrowNotFound(vehicleId);
+        vehiclesRepository.save(vehicles);
     }
 
     public void delete(Long id) {

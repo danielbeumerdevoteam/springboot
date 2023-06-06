@@ -12,7 +12,7 @@ import premasterprojecten.springboot.entities.Vehicles;
 import java.util.Arrays;
 import java.util.List;
 
-public class TestRepository {
+public class RepositoryTest {
     @Mock
     private AutomakerRepository automakerRepository;
     @Mock TypesRepository typesRepository;

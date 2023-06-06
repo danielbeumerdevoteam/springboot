@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 import org.assertj.core.api.Assertions;
 
-class TestController {
+class VehicleControllerTest {
     @InjectMocks
     private VehicleController vehicleController;
 

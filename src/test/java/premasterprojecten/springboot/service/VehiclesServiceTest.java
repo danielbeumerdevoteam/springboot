@@ -14,9 +14,9 @@ import java.util.Arrays;
 import java.util.List;
 
 @ExtendWith(SpringExtension.class)
-class TestVehiclesService {
+class VehiclesServiceTest {
     @InjectMocks
-    private TestVehiclesService testVehiclesService;
+    private VehiclesServiceTest vehiclesServiceTest;
     @Mock
     private VehiclesService vehiclesService;
 

@@ -11,7 +11,7 @@ import premasterprojecten.springboot.entities.Vehicles;
 import premasterprojecten.springboot.utility.Utils;
 
 @ExtendWith(SpringExtension.class)
-class TestUtils {
+class UtilsTest {
     @Mock
     private Utils utils;
 
@@ -28,6 +28,7 @@ class TestUtils {
             Vehicles vehicle = new Vehicles();
             Long vehicleId = 1L;
             Vehicles expectedVehicle = vehicle;
+
             vehicle = utils.findVehicleOrThrowNotFound(vehicleId);
             Assertions.assertNotNull(vehicle);
             Assertions.assertEquals(expectedVehicle.getClass(),vehicle.getClass());

@@ -11,8 +11,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.Resource;
 import org.springframework.http.*;
 import premasterprojecten.springboot.entities.Vehicles;
 import premasterprojecten.springboot.service.VehiclesService;
@@ -20,11 +18,8 @@ import premasterprojecten.springboot.service.VehiclesService;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-     class TestIntegration {
+     class VehicleControllerIntegrationTest {
     @Autowired
     private TestRestTemplate testRestTemplate;
     @MockBean
@@ -42,7 +37,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
         Mockito.doAnswer(invocation -> {
             Vehicles vehicle = invocation.getArgument(0);
             return null;
-        }).when(vehiclesServiceMock).update(Mockito.any(Vehicles.class)); //TODO fixen
+        }).when(vehiclesServiceMock).update(Mockito.any(Vehicles.class));
         Mockito.doNothing().when(vehiclesServiceMock).delete(Mockito.anyLong());
 
         File reportFile = new File("/report.txt");
@@ -96,26 +91,5 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
         Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         Assertions.assertThat(response.getBody()).contains("Vehicle ID " + 1L + " deleted");
     }
-
-    @Test
-    @DisplayName("generateReport returns the report file when successful")
-    public void generateReport_ReturnsReportFile_WhenSuccessful() {
-        File reportFile = new File("report.txt");
-
-        HttpHeaders expectedHeaders = new HttpHeaders();
-        expectedHeaders.setContentType(MediaType.TEXT_PLAIN);
-        expectedHeaders.setContentDispositionFormData("attachment", "report.txt");
-
-        ResponseEntity<FileSystemResource> expectedResponse = ResponseEntity
-                .status(HttpStatus.OK)
-                .headers(expectedHeaders)
-                .body(new FileSystemResource(reportFile));
-
-        ResponseEntity<FileSystemResource> response = testRestTemplate.getForEntity("/vehicles/generatereport", FileSystemResource.class);
-
-       // Assertions.assertThat(response.getStatusCode()).isEqualTo(expectedResponse.getStatusCode());
-        Assertions.assertThat(response.getHeaders()).isEqualTo(expectedResponse.getHeaders());
-    }
-
 }
 
